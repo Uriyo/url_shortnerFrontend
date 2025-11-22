@@ -44,14 +44,17 @@ export default async function RedirectHandler({
 		// If no redirect happened, show 404
 		notFound()
 	} catch (error) {
-		// Next.js redirects throw a special error - this is expected behavior
-		// Only log if it's NOT a redirect error
-		if (error instanceof Error && !error.message.includes('NEXT_REDIRECT')) {
+		// Next.js redirects and notFound throw special errors - this is expected behavior
+		// Only log if it's NOT a Next.js internal error
+		if (error instanceof Error && 
+			!error.message.includes('NEXT_REDIRECT') && 
+			!error.message.includes('NEXT_NOT_FOUND')) {
 			console.error('Redirect handler error:', error)
 		}
 		
-		// If it's a redirect error, let Next.js handle it
-		if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
+		// If it's a Next.js internal error (redirect or notFound), let Next.js handle it
+		if (error instanceof Error && 
+			(error.message.includes('NEXT_REDIRECT') || error.message.includes('NEXT_NOT_FOUND'))) {
 			throw error
 		}
 		

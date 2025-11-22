@@ -87,17 +87,6 @@ link-swift-nextjs/
 └── tsconfig.json            # TypeScript configuration
 ```
 
-## Key Differences from Vite Version
-
-This Next.js version includes several improvements over the original Vite version:
-
-1. **Server-Side Rendering (SSR)**: Improved SEO and initial page load performance
-2. **App Router**: Utilizing Next.js 14+ App Router for better routing and layouts
-3. **Optimized Components**: Using Next.js built-in components like `Image` and `Link`
-4. **Metadata API**: Proper SEO metadata management
-5. **Server Components**: Default to server components for better performance
-6. **TypeScript Configuration**: Strict TypeScript configuration for better type safety
-
 ## Available Scripts
 
 - `npm run dev` - Start development server
@@ -113,30 +102,10 @@ Create a `.env.local` file in the root directory:
 NEXT_PUBLIC_API_URL=your-api-url
 ```
 
-## Deployment
-
-This project can be easily deployed to Vercel:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/link-swift-nextjs)
-
-Or deploy to other platforms that support Next.js:
-- Netlify
-- Railway
-- DigitalOcean App Platform
-- AWS Amplify
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License.
 
 ## Acknowledgments
 
 - Built with [Next.js](https://nextjs.org/)
 - UI components from [Shadcn UI](https://ui.shadcn.com/)
 - Icons from [Lucide React](https://lucide.dev/)
-- QR Code generation using [qrcode.react](https://github.com/zpao/qrcode.react)
 

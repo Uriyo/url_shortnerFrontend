@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card } from '@/components/ui/card'
-import { Copy, Check, QrCode, Link2, Sparkles } from 'lucide-react'
-import { QRCodeSVG } from 'qrcode.react'
+import { Copy, Check,Link2, Sparkles } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { api, ApiError } from '@/lib/api'
 import { CreateLinkResponse } from '@/types/link'
@@ -122,10 +121,7 @@ export default function ShortenerForm() {
 							<Link2 className="w-4 h-4" />
 							Short Link
 						</TabsTrigger>
-						<TabsTrigger value="qrcode" className="flex items-center gap-2">
-							<QrCode className="w-4 h-4" />
-							QR Code
-						</TabsTrigger>
+						
 					</TabsList>
 
 					<TabsContent value="shortlink" className="space-y-6">
@@ -300,9 +296,6 @@ export default function ShortenerForm() {
 						{shortUrl && (
 							<div className="animate-fade-in mt-8 p-8 bg-secondary/30 rounded-lg border border-border/50">
 								<div className="flex flex-col items-center gap-6">
-									<div className="bg-white p-6 rounded-lg shadow-lg">
-										<QRCodeSVG value={shortUrl} size={200} />
-									</div>
 									<div className="text-center">
 										<p className="text-sm text-muted-foreground mb-1">Your shortened URL:</p>
 										<a 
@@ -331,33 +324,6 @@ export default function ShortenerForm() {
 													Copy Link
 												</>
 											)}
-										</Button>
-										<Button
-											variant="outline"
-											onClick={() => {
-												const svg = document.querySelector('svg')
-												if (svg) {
-													const svgData = new XMLSerializer().serializeToString(svg)
-													const canvas = document.createElement('canvas')
-													const ctx = canvas.getContext('2d')
-													const img = new Image()
-													img.onload = () => {
-														canvas.width = img.width
-														canvas.height = img.height
-														ctx?.drawImage(img, 0, 0)
-														const pngFile = canvas.toDataURL('image/png')
-														const downloadLink = document.createElement('a')
-														downloadLink.download = 'qr-code.png'
-														downloadLink.href = pngFile
-														downloadLink.click()
-													}
-													img.src = 'data:image/svg+xml;base64,' + btoa(svgData)
-												}
-											}}
-											className="flex items-center gap-2"
-										>
-											<QrCode className="w-4 h-4" />
-											Download QR
 										</Button>
 									</div>
 								</div>
