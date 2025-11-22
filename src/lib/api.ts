@@ -6,8 +6,8 @@ import {
 	LinkStats,
 } from '@/types/link'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
-const APP_BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3002'
+const API_BASE_URL = process.env.API_URL || 'http://localhost:8000'
+const APP_BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
 class ApiError extends Error {
 	constructor(

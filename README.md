@@ -95,7 +95,7 @@ link-swift-nextjs/
 Create a `.env.local` file in the root directory:
 
 ```env
-NEXT_PUBLIC_API_URL=your-api-url
+API_URL=your-api-url
 ```
 
 
