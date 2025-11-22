@@ -106,39 +106,40 @@ export default function ShortenerForm() {
 	}
 
 	return (
-		<div className="w-full max-w-4xl mx-auto">
-			<Card className="bg-card/50 backdrop-blur-sm border-border/50 p-8 shadow-2xl">
-				<div className="text-center mb-8">
-					<h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+		<div className="w-full max-w-4xl mx-auto px-4">
+			<Card className="bg-card/50 backdrop-blur-sm border-border/50 p-4 sm:p-6 md:p-8 shadow-2xl">
+				<div className="text-center mb-6 sm:mb-8">
+					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2 sm:mb-3">
 						Shorten a long link
 					</h2>
-					<p className="text-muted-foreground">No credit card required</p>
+					<p className="text-muted-foreground text-sm sm:text-base">No credit card required</p>
 				</div>
 
 				<Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-					<TabsList className="grid w-full grid-cols-2 mb-8">
-						<TabsTrigger value="shortlink" className="flex items-center gap-2">
-							<Link2 className="w-4 h-4" />
-							Short Link
+					<TabsList className="grid w-full grid-cols-2 mb-6 sm:mb-8">
+						<TabsTrigger value="shortlink" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+							<Link2 className="w-3 h-3 sm:w-4 sm:h-4" />
+							<span className="hidden xs:inline">Short Link</span>
+							<span className="xs:hidden">Link</span>
 						</TabsTrigger>
 						
 					</TabsList>
 
-					<TabsContent value="shortlink" className="space-y-6">
-						<div className="space-y-4">
-							<div className="flex flex-col md:flex-row gap-3">
+					<TabsContent value="shortlink" className="space-y-4 sm:space-y-6">
+						<div className="space-y-3 sm:space-y-4">
+							<div className="flex flex-col md:flex-row gap-2 sm:gap-3">
 								<Input
 									type="url"
 									placeholder="https://example.com/your-long-url"
 									value={url}
 									onChange={(e) => setUrl(e.target.value)}
 									onKeyDown={(e) => e.key === 'Enter' && generateShortUrl()}
-									className="flex-1 h-14 text-lg bg-background/50 border-border/50"
+									className="flex-1 h-12 sm:h-14 text-sm sm:text-base md:text-lg bg-background/50 border-border/50"
 								/>
 								<Button
 									onClick={generateShortUrl}
 									disabled={isLoading}
-									className="h-14 px-8 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg"
+									className="h-12 sm:h-14 px-4 sm:px-6 md:px-8 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm sm:text-base md:text-lg whitespace-nowrap"
 								>
 									{isLoading ? 'Generating...' : 'Get your link for free'}
 								</Button>
@@ -151,9 +152,9 @@ export default function ShortenerForm() {
 									variant="ghost"
 									size="sm"
 									onClick={() => setShowCustomCode(!showCustomCode)}
-									className="text-muted-foreground hover:text-primary transition-colors"
+									className="text-muted-foreground hover:text-primary transition-colors text-xs sm:text-sm"
 								>
-									<Sparkles className="w-4 h-4 mr-2" />
+									<Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
 									{showCustomCode ? 'Hide' : 'Customize your link'}
 								</Button>
 							</div>
@@ -161,7 +162,7 @@ export default function ShortenerForm() {
 							{/* Custom Code Input */}
 							{showCustomCode && (
 								<div className="animate-fade-in space-y-2">
-									<Label htmlFor="customCode" className="text-sm text-muted-foreground">
+									<Label htmlFor="customCode" className="text-xs sm:text-sm text-muted-foreground">
 										Custom back-half (optional)
 									</Label>
 									<Input
@@ -171,7 +172,7 @@ export default function ShortenerForm() {
 										value={customCode}
 										onChange={(e) => setCustomCode(e.target.value)}
 										onKeyDown={(e) => e.key === 'Enter' && generateShortUrl()}
-										className="h-12 bg-background/50 border-border/50"
+										className="h-10 sm:h-12 bg-background/50 border-border/50 text-sm sm:text-base"
 										maxLength={20}
 									/>
 									<p className="text-xs text-muted-foreground">
@@ -182,15 +183,15 @@ export default function ShortenerForm() {
 						</div>
 
 						{shortUrl && (
-							<div className="animate-fade-in mt-8 p-6 bg-secondary/30 rounded-lg border border-border/50">
-								<div className="flex items-center justify-between gap-4 flex-wrap">
-									<div className="flex-1 min-w-0">
-										<p className="text-sm text-muted-foreground mb-1">Your shortened URL:</p>
+							<div className="animate-fade-in mt-6 sm:mt-8 p-4 sm:p-6 bg-secondary/30 rounded-lg border border-border/50">
+								<div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-3 sm:gap-4">
+									<div className="flex-1 min-w-0 w-full">
+										<p className="text-xs sm:text-sm text-muted-foreground mb-1">Your shortened URL:</p>
 										<a 
 											href={shortUrl}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="text-lg md:text-xl font-semibold text-primary hover:text-primary/80 transition-colors truncate block"
+											className="text-base sm:text-lg md:text-xl font-semibold text-primary hover:text-primary/80 transition-colors truncate block"
 										>
 											{shortUrl}
 										</a>
@@ -198,7 +199,7 @@ export default function ShortenerForm() {
 									<Button
 										onClick={copyToClipboard}
 										variant="outline"
-										className="flex items-center gap-2"
+										className="flex items-center gap-2 w-full sm:w-auto shrink-0"
 									>
 										{copied ? (
 											<>
@@ -214,21 +215,21 @@ export default function ShortenerForm() {
 									</Button>
 								</div>
 
-								<div className="mt-6 pt-6 border-t border-border/50">
-									<div className="grid grid-cols-2 gap-4 text-center">
+								<div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-border/50">
+									<div className="grid grid-cols-2 gap-3 sm:gap-4 text-center">
 										<div>
-											<p className="text-2xl font-bold text-foreground">0</p>
-											<p className="text-sm text-muted-foreground">Clicks</p>
+											<p className="text-xl sm:text-2xl font-bold text-foreground">0</p>
+											<p className="text-xs sm:text-sm text-muted-foreground">Clicks</p>
 										</div>
 										<div>
-											<p className="text-2xl font-bold text-foreground">
+											<p className="text-base sm:text-lg md:text-2xl font-bold text-foreground">
 												{new Date(createdAt).toLocaleDateString('en-US', { 
 													month: 'short', 
 													day: 'numeric',
 													year: 'numeric' 
 												})}
 											</p>
-											<p className="text-sm text-muted-foreground">Created</p>
+											<p className="text-xs sm:text-sm text-muted-foreground">Created</p>
 										</div>
 									</div>
 								</div>
@@ -236,21 +237,21 @@ export default function ShortenerForm() {
 						)}
 					</TabsContent>
 
-					<TabsContent value="qrcode" className="space-y-6">
-						<div className="space-y-4">
-							<div className="flex flex-col md:flex-row gap-3">
+					<TabsContent value="qrcode" className="space-y-4 sm:space-y-6">
+						<div className="space-y-3 sm:space-y-4">
+							<div className="flex flex-col md:flex-row gap-2 sm:gap-3">
 								<Input
 									type="url"
 									placeholder="https://example.com/your-long-url"
 									value={url}
 									onChange={(e) => setUrl(e.target.value)}
 									onKeyDown={(e) => e.key === 'Enter' && generateShortUrl()}
-									className="flex-1 h-14 text-lg bg-background/50 border-border/50"
+									className="flex-1 h-12 sm:h-14 text-sm sm:text-base md:text-lg bg-background/50 border-border/50"
 								/>
 								<Button
 									onClick={generateShortUrl}
 									disabled={isLoading}
-									className="h-14 px-8 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg"
+									className="h-12 sm:h-14 px-4 sm:px-6 md:px-8 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm sm:text-base md:text-lg whitespace-nowrap"
 								>
 									{isLoading ? 'Generating...' : 'Generate QR Code'}
 								</Button>
@@ -263,9 +264,9 @@ export default function ShortenerForm() {
 									variant="ghost"
 									size="sm"
 									onClick={() => setShowCustomCode(!showCustomCode)}
-									className="text-muted-foreground hover:text-primary transition-colors"
+									className="text-muted-foreground hover:text-primary transition-colors text-xs sm:text-sm"
 								>
-									<Sparkles className="w-4 h-4 mr-2" />
+									<Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
 									{showCustomCode ? 'Hide' : 'Customize your link'}
 								</Button>
 							</div>
@@ -273,7 +274,7 @@ export default function ShortenerForm() {
 							{/* Custom Code Input */}
 							{showCustomCode && (
 								<div className="animate-fade-in space-y-2">
-									<Label htmlFor="customCode-qr" className="text-sm text-muted-foreground">
+									<Label htmlFor="customCode-qr" className="text-xs sm:text-sm text-muted-foreground">
 										Custom back-half (optional)
 									</Label>
 									<Input
@@ -283,7 +284,7 @@ export default function ShortenerForm() {
 										value={customCode}
 										onChange={(e) => setCustomCode(e.target.value)}
 										onKeyDown={(e) => e.key === 'Enter' && generateShortUrl()}
-										className="h-12 bg-background/50 border-border/50"
+										className="h-10 sm:h-12 bg-background/50 border-border/50 text-sm sm:text-base"
 										maxLength={20}
 									/>
 									<p className="text-xs text-muted-foreground">
@@ -294,24 +295,24 @@ export default function ShortenerForm() {
 						</div>
 
 						{shortUrl && (
-							<div className="animate-fade-in mt-8 p-8 bg-secondary/30 rounded-lg border border-border/50">
-								<div className="flex flex-col items-center gap-6">
-									<div className="text-center">
-										<p className="text-sm text-muted-foreground mb-1">Your shortened URL:</p>
+							<div className="animate-fade-in mt-6 sm:mt-8 p-4 sm:p-6 md:p-8 bg-secondary/30 rounded-lg border border-border/50">
+								<div className="flex flex-col items-center gap-4 sm:gap-6">
+									<div className="text-center w-full">
+										<p className="text-xs sm:text-sm text-muted-foreground mb-1">Your shortened URL:</p>
 										<a 
 											href={shortUrl}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="text-lg md:text-xl font-semibold text-primary hover:text-primary/80 transition-colors"
+											className="text-base sm:text-lg md:text-xl font-semibold text-primary hover:text-primary/80 transition-colors break-all"
 										>
 											{shortUrl}
 										</a>
 									</div>
-									<div className="flex gap-3">
+									<div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
 										<Button
 											onClick={copyToClipboard}
 											variant="outline"
-											className="flex items-center gap-2"
+											className="flex items-center gap-2 w-full sm:w-auto"
 										>
 											{copied ? (
 												<>

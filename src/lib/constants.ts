@@ -5,7 +5,7 @@ export const APP_BASE_URL = typeof window !== 'undefined'
 	: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
 export const ROUTES = {
-	HOME: '/',
+	HOME: '/dashboard',
 	DASHBOARD: '/dashboard',
 	STATS: '/stats',
 	HEALTHCHECK: '/healthcheck',

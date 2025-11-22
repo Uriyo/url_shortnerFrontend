@@ -24,15 +24,14 @@ export function SiteHeader() {
 
 	return (
 		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-			<div className="container flex h-16 items-center">
+			<div className="container flex h-14 sm:h-16 items-center px-4 sm:px-6">
 				<div className="mr-4 hidden md:flex">
-					<Link href={ROUTES.HOME} className="mr-6 flex items-center space-x-2">
-						<Link2 className="h-6 w-6" />
-						<span className="hidden font-bold sm:inline-block">
+					<Link href={ROUTES.HOME} className="mr-4 lg:mr-6 flex items-center space-x-2">
+						<span className="hidden font-bold sm:inline-block text-primary text-base lg:text-lg">
 							{APP_NAME}
 						</span>
 					</Link>
-					<nav className="flex items-center space-x-6 text-sm font-medium">
+					<nav className="flex items-center space-x-4 lg:space-x-6 text-xs lg:text-sm font-medium">
 						{navigation.map((item) => (
 							<Link
 								key={item.href}
@@ -55,20 +54,20 @@ export function SiteHeader() {
 							variant="ghost"
 							className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
 						>
-							<Menu className="h-6 w-6" />
+							<Menu className="h-5 w-5 sm:h-6 sm:w-6" />
 							<span className="sr-only">Toggle Menu</span>
 						</Button>
 					</SheetTrigger>
-					<SheetContent side="left" className="pr-0">
+					<SheetContent side="left" className="pr-0 w-[85vw] sm:w-[350px]">
 						<Link
 							href={ROUTES.HOME}
 							className="flex items-center space-x-2"
 						>
-							<Link2 className="h-6 w-6" />
-							<span className="font-bold">{APP_NAME}</span>
+							<Link2 className="h-5 w-5 sm:h-6 sm:w-6" />
+							<span className="font-bold text-sm sm:text-base">{APP_NAME}</span>
 						</Link>
-						<div className="my-4 h-[calc(100vh-8rem)] pb-10">
-							<div className="flex flex-col space-y-3">
+						<div className="my-4 h-[calc(100vh-8rem)] pb-10 overflow-y-auto">
+							<div className="flex flex-col space-y-2 sm:space-y-3">
 								{navigation.map((item) => (
 									<Link
 										key={item.href}
@@ -80,7 +79,7 @@ export function SiteHeader() {
 												: 'text-foreground/60'
 										)}
 									>
-										<item.icon className="h-5 w-5" />
+										<item.icon className="h-4 w-4 sm:h-5 sm:w-5" />
 										{item.name}
 									</Link>
 								))}
@@ -91,8 +90,7 @@ export function SiteHeader() {
 				<div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
 					<div className="w-full flex-1 md:w-auto md:flex-none">
 						<Link href={ROUTES.HOME} className="flex items-center space-x-2 md:hidden">
-							<Link2 className="h-6 w-6" />
-							<span className="font-bold">{APP_NAME}</span>
+							<span className="font-bold text-sm sm:text-base">{APP_NAME}</span>
 						</Link>
 					</div>
 				</div>

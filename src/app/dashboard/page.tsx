@@ -77,11 +77,11 @@ export default function DashboardPage() {
 	}
 
 	return (
-		<div className="container py-8 mx-auto mt-16">
-			<div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+		<div className="container py-6 sm:py-8 mx-auto mt-16 sm:mt-16 px-4 sm:px-6">
+			<div className="mb-6 sm:mb-8 flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-					<p className="text-muted-foreground mt-2">
+					<h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Dashboard</h1>
+					<p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">
 						Manage your shortened links
 					</p>
 				</div>
@@ -90,15 +90,16 @@ export default function DashboardPage() {
 						variant="outline"
 						onClick={handleRefresh}
 						disabled={isLoading}
+						className="flex-1 sm:flex-none"
 					>
 						<RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
-						Refresh
+						<span className="hidden sm:inline">Refresh</span>
 					</Button>
 					<AddLinkDialog onSuccess={handleSuccess} />
 				</div>
 			</div>
 
-			<div className="mb-6 flex flex-col gap-4 sm:flex-row">
+			<div className="mb-4 sm:mb-6 flex flex-col gap-3 sm:gap-4 sm:flex-row">
 				<div className="relative flex-1">
 					<Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 					<Input
@@ -164,12 +165,12 @@ export default function DashboardPage() {
 					<LinksTable links={filteredLinks} onDelete={handleRefresh} />
 
 					{data && data.totalPages > 1 && (
-						<div className="mt-6 flex items-center justify-between">
-							<p className="text-sm text-muted-foreground">
+						<div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+							<p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
 								Showing {data.data.length} of {data.total} links
 								{searchQuery && ` (filtered: ${filteredLinks.length})`}
 							</p>
-							<div className="flex gap-2">
+							<div className="flex items-center justify-center gap-2">
 								<Button
 									variant="outline"
 									size="sm"
@@ -178,8 +179,8 @@ export default function DashboardPage() {
 								>
 									Previous
 								</Button>
-								<div className="flex items-center gap-2">
-									<span className="text-sm">
+								<div className="flex items-center gap-2 min-w-[100px] justify-center">
+									<span className="text-xs sm:text-sm whitespace-nowrap">
 										Page {currentPage} of {data.totalPages}
 									</span>
 								</div>

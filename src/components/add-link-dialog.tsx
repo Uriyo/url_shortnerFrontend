@@ -165,15 +165,16 @@ export function AddLinkDialog({ onSuccess }: AddLinkDialogProps) {
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
-				<Button>
+				<Button className="flex-1 sm:flex-none">
 					<Plus className="mr-2 h-4 w-4" />
-					Add Link
+					<span className="hidden sm:inline">Add Link</span>
+					<span className="sm:hidden">Add</span>
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[525px]">
+			<DialogContent className="w-[95vw] max-w-[525px] max-h-[90vh] overflow-y-auto">
 				<DialogHeader>
-					<DialogTitle>Create Short Link</DialogTitle>
-					<DialogDescription>
+					<DialogTitle className="text-lg sm:text-xl">Create Short Link</DialogTitle>
+					<DialogDescription className="text-sm">
 						Enter the URL you want to shorten. Optionally provide a custom code.
 					</DialogDescription>
 				</DialogHeader>
@@ -184,15 +185,16 @@ export function AddLinkDialog({ onSuccess }: AddLinkDialogProps) {
 							name="url"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Target URL</FormLabel>
+									<FormLabel className="text-sm sm:text-base">Target URL</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="https://example.com/your-long-url"
 											type="url"
+											className="text-sm sm:text-base"
 											{...field}
 										/>
 									</FormControl>
-									<FormDescription>
+									<FormDescription className="text-xs sm:text-sm">
 										Enter a valid URL starting with http:// or https://
 									</FormDescription>
 									<FormMessage />
@@ -204,29 +206,31 @@ export function AddLinkDialog({ onSuccess }: AddLinkDialogProps) {
 							name="customCode"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Custom Code (Optional)</FormLabel>
+									<FormLabel className="text-sm sm:text-base">Custom Code (Optional)</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="my-custom-code"
+											className="text-sm sm:text-base"
 											{...field}
 										/>
 									</FormControl>
-									<FormDescription>
+									<FormDescription className="text-xs sm:text-sm">
 										Custom short code (6-8 characters, letters, numbers)
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
 							)}
 						/>
-						<DialogFooter>
+						<DialogFooter className="flex-col sm:flex-row gap-2 sm:gap-0">
 							<Button
 								type="button"
 								variant="outline"
 								onClick={() => setIsOpen(false)}
+								className="w-full sm:w-auto"
 							>
 								Cancel
 							</Button>
-							<Button type="submit" disabled={form.formState.isSubmitting}>
+							<Button type="submit" disabled={form.formState.isSubmitting} className="w-full sm:w-auto">
 								{form.formState.isSubmitting && (
 									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
 								)}

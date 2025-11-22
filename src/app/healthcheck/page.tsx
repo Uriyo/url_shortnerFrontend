@@ -96,12 +96,12 @@ export default function HealthCheckPage() {
 
 	if (isLoading && !health) {
 		return (
-			<div className="container py-8 mx-auto mt-16">
-				<div className="mb-8">
-					<Skeleton className="h-10 w-64 mb-2" />
-					<Skeleton className="h-6 w-96" />
+			<div className="container py-6 sm:py-8 mx-auto mt-16 px-4 sm:px-6">
+				<div className="mb-6 sm:mb-8">
+					<Skeleton className="h-8 sm:h-10 w-48 sm:w-64 mb-2" />
+					<Skeleton className="h-5 sm:h-6 w-64 sm:w-96" />
 				</div>
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{[1, 2, 3, 4, 5, 6].map((i) => (
 						<Skeleton key={i} className="h-40" />
 					))}
@@ -113,24 +113,24 @@ export default function HealthCheckPage() {
 	const allHealthy = health?.frontend.ok && health?.backend.ok
 
 	return (
-		<div className="container py-8 mx-auto mt-16">
-			<div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+		<div className="container py-6 sm:py-8 mx-auto mt-16 px-4 sm:px-6">
+			<div className="mb-6 sm:mb-8 flex flex-col gap-4">
 				<div>
-					<div className="flex items-center gap-3 mb-2">
-						<h1 className="text-3xl font-bold tracking-tight">System Health Check</h1>
+					<div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+						<h1 className="text-2xl sm:text-3xl font-bold tracking-tight">System Health Check</h1>
 						{allHealthy ? (
-							<Badge variant="default" className="bg-green-600 hover:bg-green-700">
-								<CheckCircle2 className="w-4 h-4 mr-1" />
-								All Systems Operational
+							<Badge variant="default" className="bg-green-600 hover:bg-green-700 w-fit">
+								<CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+								<span className="text-xs sm:text-sm">All Systems Operational</span>
 							</Badge>
 						) : (
-							<Badge variant="destructive">
-								<XCircle className="w-4 h-4 mr-1" />
-								System Issues Detected
+							<Badge variant="destructive" className="w-fit">
+								<XCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+								<span className="text-xs sm:text-sm">System Issues Detected</span>
 							</Badge>
 						)}
 					</div>
-					<p className="text-muted-foreground">
+					<p className="text-muted-foreground text-sm sm:text-base">
 						Monitor the status and performance of all services
 					</p>
 				</div>
@@ -139,18 +139,19 @@ export default function HealthCheckPage() {
 						onClick={checkHealth}
 						disabled={isLoading}
 						variant="outline"
+						className="w-full sm:w-auto"
 					>
 						<RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
 						Refresh Status
 					</Button>
-					<p className="text-xs text-muted-foreground text-center">
+					<p className="text-xs text-muted-foreground text-center sm:text-left">
 						Last checked: {formatTime(lastChecked)}
 					</p>
 				</div>
 			</div>
 
 			{/* Overview Cards */}
-			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
+			<div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6 sm:mb-8">
 				{/* Frontend Status */}
 				<Card className={health?.frontend.ok ? 'border-green-200 dark:border-green-900' : 'border-red-200 dark:border-red-900'}>
 					<CardHeader>
@@ -262,49 +263,49 @@ export default function HealthCheckPage() {
 			</div>
 
 			{/* Detailed Status */}
-			<div className="grid gap-6 md:grid-cols-2">
+			<div className="grid gap-4 sm:gap-6 md:grid-cols-2">
 				<Card>
 					<CardHeader>
-						<CardTitle>Service Endpoints</CardTitle>
-						<CardDescription>Status of all service endpoints</CardDescription>
+						<CardTitle className="text-lg sm:text-xl">Service Endpoints</CardTitle>
+						<CardDescription className="text-xs sm:text-sm">Status of all service endpoints</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<div className="space-y-3">
-							<div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
-								<div className="flex items-center gap-3">
-									<Zap className="w-4 h-4 text-primary" />
-									<div>
-										<p className="text-sm font-medium">Frontend Health</p>
-										<p className="text-xs text-muted-foreground">/healthz</p>
+						<div className="space-y-2 sm:space-y-3">
+							<div className="flex items-center justify-between p-2 sm:p-3 rounded-lg bg-gray-50 dark:bg-gray-900 gap-2">
+								<div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+									<Zap className="w-4 h-4 text-primary shrink-0" />
+									<div className="min-w-0">
+										<p className="text-xs sm:text-sm font-medium truncate">Frontend Health</p>
+										<p className="text-xs text-muted-foreground truncate">/healthz</p>
 									</div>
 								</div>
-								<Badge variant={health?.frontend.ok ? 'default' : 'destructive'} className={health?.frontend.ok ? 'bg-green-600' : ''}>
+								<Badge variant={health?.frontend.ok ? 'default' : 'destructive'} className={`${health?.frontend.ok ? 'bg-green-600' : ''} shrink-0 text-xs`}>
 									{health?.frontend.ok ? 'Active' : 'Down'}
 								</Badge>
 							</div>
 
-							<div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
-								<div className="flex items-center gap-3">
-									<Database className="w-4 h-4 text-primary" />
-									<div>
-										<p className="text-sm font-medium">Backend API</p>
-										<p className="text-xs text-muted-foreground">GET /api/links</p>
+							<div className="flex items-center justify-between p-2 sm:p-3 rounded-lg bg-gray-50 dark:bg-gray-900 gap-2">
+								<div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+									<Database className="w-4 h-4 text-primary shrink-0" />
+									<div className="min-w-0">
+										<p className="text-xs sm:text-sm font-medium truncate">Backend API</p>
+										<p className="text-xs text-muted-foreground truncate">GET /api/links</p>
 									</div>
 								</div>
-								<Badge variant={health?.backend.ok ? 'default' : 'destructive'} className={health?.backend.ok ? 'bg-green-600' : ''}>
+								<Badge variant={health?.backend.ok ? 'default' : 'destructive'} className={`${health?.backend.ok ? 'bg-green-600' : ''} shrink-0 text-xs`}>
 									{health?.backend.ok ? 'Active' : 'Down'}
 								</Badge>
 							</div>
 
-							<div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
-								<div className="flex items-center gap-3">
-									<Activity className="w-4 h-4 text-primary" />
-									<div>
-										<p className="text-sm font-medium">Redirect Service</p>
-										<p className="text-xs text-muted-foreground">GET /:code</p>
+							<div className="flex items-center justify-between p-2 sm:p-3 rounded-lg bg-gray-50 dark:bg-gray-900 gap-2">
+								<div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+									<Activity className="w-4 h-4 text-primary shrink-0" />
+									<div className="min-w-0">
+										<p className="text-xs sm:text-sm font-medium truncate">Redirect Service</p>
+										<p className="text-xs text-muted-foreground truncate">GET /:code</p>
 									</div>
 								</div>
-								<Badge variant="default" className="bg-green-600">
+								<Badge variant="default" className="bg-green-600 shrink-0 text-xs">
 									Active
 								</Badge>
 							</div>
@@ -315,15 +316,15 @@ export default function HealthCheckPage() {
 			</div>
 
 			{/* Footer Info */}
-			<Card className="mt-6">
-				<CardContent className="pt-6">
-					<div className="flex items-center justify-between text-sm text-muted-foreground">
+			<Card className="mt-4 sm:mt-6">
+				<CardContent className="pt-4 sm:pt-6">
+					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs sm:text-sm text-muted-foreground">
 						<div className="flex items-center gap-2">
-							<Clock className="w-4 h-4" />
-							<span>Last updated: {health?.frontend.timestamp ? new Date(health.frontend.timestamp).toLocaleString() : '--'}</span>
+							<Clock className="w-4 h-4 shrink-0" />
+							<span className="truncate">Last updated: {health?.frontend.timestamp ? new Date(health.frontend.timestamp).toLocaleString() : '--'}</span>
 						</div>
 						<div className="flex items-center gap-2">
-							<Activity className="w-4 h-4" />
+							<Activity className="w-4 h-4 shrink-0" />
 							<span>Auto-refresh: Manual</span>
 						</div>
 					</div>

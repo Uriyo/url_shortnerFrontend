@@ -32,6 +32,7 @@ import {
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useToast } from '@/hooks/use-toast'
 import { api } from '@/lib/api'
 import { formatRelativeTime, truncateUrl, copyToClipboard } from '@/lib/format'
@@ -108,7 +109,8 @@ export function LinksTable({ links, onDelete }: LinksTableProps) {
 
 	return (
 		<>
-			<div className="rounded-md border overflow-x-auto">
+			{/* Desktop Table View */}
+			<div className="hidden md:block rounded-md border overflow-x-auto">
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -224,6 +226,117 @@ export function LinksTable({ links, onDelete }: LinksTableProps) {
 						))}
 					</TableBody>
 				</Table>
+			</div>
+
+			{/* Mobile Card View */}
+			<div className="md:hidden space-y-4">
+				{links.map((link) => (
+					<Card key={link._id}>
+						<CardHeader className="pb-3">
+							<div className="flex items-start justify-between gap-2">
+								<div className="flex-1 min-w-0">
+									<code className="inline-block rounded bg-gray-100 dark:bg-gray-800 px-2 py-1 text-sm font-medium mb-2">
+										{link.shortId}
+									</code>
+									<div className="flex items-center gap-2 flex-wrap">
+										<Badge variant={link.totalClicks > 0 ? 'default' : 'secondary'}>
+											{link.totalClicks} clicks
+										</Badge>
+										<span className="text-xs text-muted-foreground">
+											{formatRelativeTime(link.lastAccessed)}
+										</span>
+									</div>
+								</div>
+								<DropdownMenu>
+									<DropdownMenuTrigger asChild>
+										<Button variant="ghost" size="icon" className="h-8 w-8 shrink-0">
+											<MoreHorizontal className="h-4 w-4" />
+											<span className="sr-only">Open menu</span>
+										</Button>
+									</DropdownMenuTrigger>
+									<DropdownMenuContent align="end">
+										<DropdownMenuLabel>Actions</DropdownMenuLabel>
+										<DropdownMenuItem
+											onClick={() => handleCopy(getShortUrl(link.shortId), 'Short URL')}
+										>
+											<Copy className="mr-2 h-4 w-4" />
+											Copy short URL
+										</DropdownMenuItem>
+										<DropdownMenuItem
+											onClick={() => handleCopy(link.redirectURL, 'Target URL')}
+										>
+											<Copy className="mr-2 h-4 w-4" />
+											Copy target URL
+										</DropdownMenuItem>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem asChild>
+											<Link href={`/code/${link.shortId}`}>
+												<ExternalLink className="mr-2 h-4 w-4" />
+												View stats
+											</Link>
+										</DropdownMenuItem>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem
+											className="text-red-600 dark:text-red-400"
+											onClick={() => setDeleteId(link.shortId)}
+										>
+											<Trash2 className="mr-2 h-4 w-4" />
+											Delete
+										</DropdownMenuItem>
+									</DropdownMenuContent>
+								</DropdownMenu>
+							</div>
+						</CardHeader>
+						<CardContent className="space-y-3">
+							<div>
+								<p className="text-xs text-muted-foreground mb-1">Short URL</p>
+								<div className="flex items-center gap-2">
+									<a
+										href={getShortUrl(link.shortId)}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-primary hover:text-primary/80 hover:underline text-sm font-mono flex-1 truncate"
+										title={getShortUrl(link.shortId)}
+									>
+										{truncateUrl(getShortUrl(link.shortId), 30)}
+									</a>
+									<Button
+										variant="ghost"
+										size="icon"
+										className="h-8 w-8 shrink-0"
+										onClick={() => handleCopy(getShortUrl(link.shortId), 'Short URL')}
+									>
+										<Copy className="h-4 w-4" />
+										<span className="sr-only">Copy short URL</span>
+									</Button>
+								</div>
+							</div>
+							<div>
+								<p className="text-xs text-muted-foreground mb-1">Target URL</p>
+								<div className="flex items-center gap-2">
+									<a
+										href={link.redirectURL}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 hover:underline text-sm flex-1 truncate"
+										title={link.redirectURL}
+									>
+										{truncateUrl(link.redirectURL, 35)}
+									</a>
+									<Button
+										variant="ghost"
+										size="icon"
+										className="h-8 w-8 shrink-0"
+										onClick={() => handleCopy(link.redirectURL, 'Target URL')}
+									>
+										<Copy className="h-4 w-4" />
+										<span className="sr-only">Copy target URL</span>
+									</Button>
+								</div>
+							</div>
+						</CardContent>
+					</Card>
+				))}
 			</div>
 
 			<AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>

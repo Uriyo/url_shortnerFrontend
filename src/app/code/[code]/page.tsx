@@ -72,11 +72,11 @@ export default function StatsPage() {
 
 	if (isLoading) {
 		return (
-			<div className="container py-8 mx-auto mt-16">
+			<div className="container py-6 sm:py-8 mx-auto mt-16 px-4 sm:px-6">
 				<div className="mb-6">
 					<Skeleton className="h-8 w-48" />
 				</div>
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{[1, 2, 3, 4, 5].map((i) => (
 						<Skeleton key={i} className="h-32" />
 					))}
@@ -87,7 +87,7 @@ export default function StatsPage() {
 
 	if (error || !stats) {
 		return (
-			<div className="container py-8 mx-auto mt-16">
+			<div className="container py-6 sm:py-8 mx-auto mt-16 px-4 sm:px-6">
 				<Button
 					variant="ghost"
 					onClick={() => router.back()}
@@ -98,15 +98,15 @@ export default function StatsPage() {
 				</Button>
 				<Card className="border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950">
 					<CardHeader>
-						<CardTitle className="text-red-900 dark:text-red-200">
+						<CardTitle className="text-red-900 dark:text-red-200 text-lg sm:text-xl">
 							Error Loading Stats
 						</CardTitle>
-						<CardDescription className="text-red-700 dark:text-red-300">
+						<CardDescription className="text-red-700 dark:text-red-300 text-sm">
 							{error || 'Link not found'}
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<Button onClick={() => router.push(ROUTES.HOME)}>
+						<Button onClick={() => router.push(ROUTES.HOME)} className="w-full sm:w-auto">
 							Go to Dashboard
 						</Button>
 					</CardContent>
@@ -116,36 +116,37 @@ export default function StatsPage() {
 	}
 
 	return (
-		<div className="container py-8 mx-auto mt-16">
-			<div className="mb-6 flex items-center justify-between">
+		<div className="container py-6 sm:py-8 mx-auto mt-16 px-4 sm:px-6">
+			<div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 				<Button
 					variant="ghost"
 					onClick={() => router.back()}
+					className="self-start"
 				>
 					<ArrowLeft className="mr-2 h-4 w-4" />
 					Back
 				</Button>
 				<Link href={ROUTES.HOME}>
-					<Button variant="outline">
+					<Button variant="outline" className="w-full sm:w-auto">
 						Go to Dashboard
 					</Button>
 				</Link>
 			</div>
 
-			<div className="mb-8">
-				<h1 className="text-3xl font-bold tracking-tight">Link Statistics</h1>
-				<p className="text-muted-foreground mt-2">
+			<div className="mb-6 sm:mb-8">
+				<h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Link Statistics</h1>
+				<p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">
 					Detailed analytics for your shortened link
 				</p>
 			</div>
 
-			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
+			<div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6 sm:mb-8">
 				<Card>
-					<CardHeader>
+					<CardHeader className="pb-3">
 						<CardTitle className="text-sm font-medium">Total Clicks</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<div className="text-4xl font-bold">{stats.totalClicks}</div>
+						<div className="text-3xl sm:text-4xl font-bold">{stats.totalClicks}</div>
 						<p className="text-xs text-muted-foreground mt-2">
 							All-time clicks on this link
 						</p>
@@ -153,11 +154,11 @@ export default function StatsPage() {
 				</Card>
 
 				<Card>
-					<CardHeader>
+					<CardHeader className="pb-3">
 						<CardTitle className="text-sm font-medium">Created</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<div className="text-2xl font-semibold">
+						<div className="text-xl sm:text-2xl font-semibold">
 							{formatDate(stats.created_At)}
 						</div>
 						<p className="text-xs text-muted-foreground mt-2">
@@ -167,11 +168,11 @@ export default function StatsPage() {
 				</Card>
 
 				<Card>
-					<CardHeader>
+					<CardHeader className="pb-3">
 						<CardTitle className="text-sm font-medium">Last Accessed</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<div className="text-2xl font-semibold">
+						<div className="text-xl sm:text-2xl font-semibold">
 							{stats.last_acessed ? formatRelativeTime(stats.last_acessed) : 'Never'}
 						</div>
 						{stats.last_acessed && (
@@ -183,28 +184,29 @@ export default function StatsPage() {
 				</Card>
 			</div>
 
-			<div className="grid gap-6 md:grid-cols-2">
+			<div className="grid gap-4 sm:gap-6 md:grid-cols-2">
 				<Card>
 					<CardHeader>
-						<CardTitle>Short Link</CardTitle>
-						<CardDescription>Your shortened URL</CardDescription>
+						<CardTitle className="text-lg sm:text-xl">Short Link</CardTitle>
+						<CardDescription className="text-xs sm:text-sm">Your shortened URL</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<div className="flex items-center gap-2">
-							<code className="flex-1 rounded bg-gray-100 dark:bg-gray-800 px-4 py-3 text-sm font-mono break-all">
+						<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+							<code className="flex-1 rounded bg-gray-100 dark:bg-gray-800 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-mono break-all">
 								{getShortUrl()}
 							</code>
 							<Button
 								variant="outline"
 								size="icon"
 								onClick={() => handleCopy(getShortUrl(), 'Short URL')}
+								className="shrink-0"
 							>
 								<Copy className="h-4 w-4" />
 							</Button>
 						</div>
 						<div className="mt-4">
-							<p className="text-sm font-medium mb-2">Short Code:</p>
-							<code className="rounded bg-gray-100 dark:bg-gray-800 px-3 py-2 text-sm">
+							<p className="text-xs sm:text-sm font-medium mb-2">Short Code:</p>
+							<code className="rounded bg-gray-100 dark:bg-gray-800 px-3 py-2 text-xs sm:text-sm">
 								{stats.shortId}
 							</code>
 						</div>
@@ -213,18 +215,19 @@ export default function StatsPage() {
 
 				<Card>
 					<CardHeader>
-						<CardTitle>Target URL</CardTitle>
-						<CardDescription>Original destination</CardDescription>
+						<CardTitle className="text-lg sm:text-xl">Target URL</CardTitle>
+						<CardDescription className="text-xs sm:text-sm">Original destination</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<div className="flex items-center gap-2 mb-4">
-							<code className="flex-1 rounded bg-gray-100 dark:bg-gray-800 px-4 py-3 text-sm font-mono break-all">
+						<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-4">
+							<code className="flex-1 rounded bg-gray-100 dark:bg-gray-800 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-mono break-all">
 								{stats.redirectURL}
 							</code>
 							<Button
 								variant="outline"
 								size="icon"
 								onClick={() => handleCopy(stats.redirectURL, 'Target URL')}
+								className="shrink-0"
 							>
 								<Copy className="h-4 w-4" />
 							</Button>

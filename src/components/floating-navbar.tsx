@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { BarChart3, Menu, X, Activity } from 'lucide-react'
+import { BarChart3, Menu, X, Activity, Link2 } from 'lucide-react'
 
 export function FloatingNavbar() {
 	const [isScrolled, setIsScrolled] = useState(false)
@@ -27,11 +27,11 @@ export function FloatingNavbar() {
 			{/* Floating Navbar */}
 			<header
 				className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-					isScrolled ? 'py-2' : 'py-4'
+					isScrolled ? 'py-2' : 'py-3 sm:py-4'
 				}`}
 			>
 				<nav
-					className={`container mx-auto px-4 transition-all duration-500 ${
+					className={`container mx-auto px-3 sm:px-4 transition-all duration-500 ${
 						isScrolled ? 'max-w-6xl' : 'max-w-7xl'
 					}`}
 				>
@@ -46,32 +46,19 @@ export function FloatingNavbar() {
 						<div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
 						{/* Main navbar content */}
-						<div className="relative flex items-center justify-between px-6 py-3">
+						<div className="relative flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3">
 							{/* Logo */}
 							<Link
 								href="/"
-								className="flex items-center gap-2 group relative z-10"
+								className="flex items-center gap-1.5 sm:gap-2 group relative z-10"
 							>
 								<div className="relative">
 									<div className="absolute inset-0 bg-primary/20 blur-xl rounded-full group-hover:bg-primary/40 transition-all duration-300" />
-									<div className="relative bg-gradient-to-br from-primary to-orange-600 p-2 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											className="w-5 h-5 text-white"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth="2"
-											strokeLinecap="round"
-											strokeLinejoin="round"
-										>
-											<path d="M10 13a5 5 5 0 0 7 7l-4 4-4-4a5 5 5 0 1 1 0-7z" />
-											<path d="M14 11a5 5 5 0 0-7-7l4-4 4 4a5 5 5 0 1 1 0 7z" />
-										</svg>
+									<div className="relative bg-gradient-to-br from-primary to-orange-600 p-1.5 sm:p-2 rounded-lg sm:rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+										<Link2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
 									</div>
 								</div>
-								<span className="font-bold text-xl bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent bg-[length:200%_auto] animate-shimmer hidden sm:block">
-									LinkSwift
+								<span className="font-bold text-lg sm:text-xl text-primary hidden xs:block">
 								</span>
 							</Link>
 
@@ -81,7 +68,7 @@ export function FloatingNavbar() {
 									<Link
 										key={link.href}
 										href={link.href}
-										className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 group"
+										className="relative px-3 lg:px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 group"
 									>
 										<span className="relative z-10 flex items-center gap-2">
 											<link.icon className="w-4 h-4" />
@@ -100,13 +87,13 @@ export function FloatingNavbar() {
 							{/* Mobile Menu Button */}
 							<button
 								onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-								className="md:hidden p-2 text-foreground hover:text-primary transition-colors rounded-lg"
+								className="md:hidden p-1.5 sm:p-2 text-foreground hover:text-primary transition-colors rounded-lg"
 								aria-label="Toggle menu"
 							>
 								{isMobileMenuOpen ? (
-									<X className="w-6 h-6" />
+									<X className="w-5 h-5 sm:w-6 sm:h-6" />
 								) : (
-									<Menu className="w-6 h-6" />
+									<Menu className="w-5 h-5 sm:w-6 sm:h-6" />
 								)}
 							</button>
 						</div>
@@ -115,26 +102,26 @@ export function FloatingNavbar() {
 
 				{/* Mobile Menu */}
 				<div
-					className={`md:hidden container mx-auto px-4 transition-all duration-500 overflow-hidden ${
+					className={`md:hidden container mx-auto px-3 sm:px-4 transition-all duration-500 overflow-hidden ${
 						isMobileMenuOpen
 							? 'max-h-96 opacity-100 mt-2'
 							: 'max-h-0 opacity-0'
 					}`}
 				>
-					<div className="backdrop-blur-xl bg-background/40 border border-white/10 rounded-3xl shadow-2xl p-4">
-						<div className="flex flex-col gap-2">
+					<div className="backdrop-blur-xl bg-background/40 border border-white/10 rounded-2xl sm:rounded-3xl shadow-2xl p-3 sm:p-4">
+						<div className="flex flex-col gap-1.5 sm:gap-2">
 							{navLinks.map((link) => (
 								<Link
 									key={link.href}
 									href={link.href}
 									onClick={() => setIsMobileMenuOpen(false)}
-									className="flex items-center gap-3 px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-primary/10 rounded-xl transition-all duration-300"
+									className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-muted-foreground hover:text-foreground hover:bg-primary/10 rounded-lg sm:rounded-xl transition-all duration-300"
 								>
-									<link.icon className="w-5 h-5" />
+									<link.icon className="w-4 h-4 sm:w-5 sm:h-5" />
 									{link.label}
 								</Link>
 							))}
-							<div className="h-px bg-border my-2" />
+							<div className="h-px bg-border my-1 sm:my-2" />
 							
 						</div>
 					</div>
