@@ -63,12 +63,12 @@ async function fetchApi<T>(
 }
 
 export const api = {
-	// Get all links with pagination
+
 	getLinks: async (page = 1, limit = 10): Promise<LinksResponse> => {
 		return fetchApi<LinksResponse>(`/api/links?page=${page}&limit=${limit}`)
 	},
 
-	// Get stats for a specific link
+
 	getLinkStats: async (shortId: string): Promise<LinkStats> => {
 		return fetchApi<LinkStats>(`/api/links/${shortId}`)
 	},
@@ -80,9 +80,34 @@ export const api = {
 			body: JSON.stringify(data),
 		})
 		
-		// Replace backend URL with frontend URL
+
 		if (response.shortURL) {
-			response.shortURL = response.shortURL.replace(API_BASE_URL, APP_BASE_URL)
+			try {
+				const parsedUrl = new URL(response.shortURL)
+
+
+				const pathSegments = parsedUrl.pathname
+					.split('/')
+					.filter(Boolean)
+				const shortIdSegment = pathSegments[pathSegments.length - 1]
+
+				if (shortIdSegment) {
+					const normalizedAppBase = APP_BASE_URL.replace(/\/+$/, '')
+					response.shortURL = `${normalizedAppBase}/${shortIdSegment}`
+				} else {
+
+					response.shortURL = response.shortURL.replace(
+						API_BASE_URL,
+						APP_BASE_URL
+					)
+				}
+			} catch {
+
+				response.shortURL = response.shortURL.replace(
+					API_BASE_URL,
+					APP_BASE_URL
+				)
+			}
 		}
 		
 		return response
