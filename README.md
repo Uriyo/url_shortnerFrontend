@@ -5,9 +5,7 @@ A modern, fast, and user-friendly URL shortener application built with Next.js 1
 ## Features
 
 - 🚀 **Fast URL Shortening**: Create short, memorable links in seconds
-- 📊 **QR Code Generation**: Generate QR codes for your shortened URLs
 - 🎨 **Modern UI**: Built with Shadcn UI and Tailwind CSS
-- 🌙 **Dark Mode**: Support for dark mode (coming soon)
 - 📱 **Responsive Design**: Works perfectly on all devices
 - ⚡ **Performance Optimized**: Built with Next.js 14+ App Router
 
@@ -16,8 +14,6 @@ A modern, fast, and user-friendly URL shortener application built with Next.js 1
 - **Framework**: Next.js 14+ with App Router
 - **UI Library**: React 18+ with TypeScript
 - **Styling**: Tailwind CSS + Shadcn UI + Radix UI
-- **Form Handling**: React Hook Form + Zod validation
-- **State Management**: TanStack Query (React Query)
 - **Code Quality**: ESLint + TypeScript strict mode
 
 ## Getting Started
@@ -106,6 +102,4 @@ NEXT_PUBLIC_API_URL=your-api-url
 ## Acknowledgments
 
 - Built with [Next.js](https://nextjs.org/)
-- UI components from [Shadcn UI](https://ui.shadcn.com/)
-- Icons from [Lucide React](https://lucide.dev/)
 
