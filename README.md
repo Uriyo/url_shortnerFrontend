@@ -29,16 +29,12 @@ A modern, fast, and user-friendly URL shortener application built with Next.js 1
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
 2. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -48,41 +44,8 @@ yarn dev
 ```bash
 npm run build
 npm start
-# or
-yarn build
-yarn start
-```
-
-## Project Structure
 
 ```
-link-swift-nextjs/
-├── public/                    # Static assets
-├── src/
-│   ├── app/                  # Next.js App Router pages
-│   │   ├── globals.css       # Global styles
-│   │   ├── layout.tsx        # Root layout
-│   │   ├── page.tsx          # Home page
-│   │   └── not-found.tsx     # 404 page
-│   ├── components/           # Reusable components
-│   │   ├── ui/              # Shadcn UI components
-│   │   ├── providers/       # Provider components
-│   │   ├── header.tsx       # Header component
-│   │   ├── hero.tsx         # Hero component
-│   │   └── shortener-form.tsx # URL shortener form
-│   ├── lib/                 # Utility libraries
-│   │   └── utils.ts         # Utility functions
-│   └── hooks/               # Custom React hooks
-├── .eslintrc.json           # ESLint configuration
-├── .gitignore               # Git ignore file
-├── components.json          # Shadcn UI configuration
-├── next.config.js           # Next.js configuration
-├── package.json             # Package dependencies
-├── postcss.config.js        # PostCSS configuration
-├── tailwind.config.ts       # Tailwind CSS configuration
-└── tsconfig.json            # TypeScript configuration
-```
-
 ## Available Scripts
 
 - `npm run dev` - Start development server
@@ -95,7 +58,8 @@ link-swift-nextjs/
 Create a `.env.local` file in the root directory:
 
 ```env
-API_URL=your-api-url
+NEXT_PUBLIC_API_URL=your-api-url
+NEXT_PUBLIC_APP_URL=your-app-url
 ```
 
 
